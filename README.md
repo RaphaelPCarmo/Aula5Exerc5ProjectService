@@ -30,22 +30,23 @@ O objetivo é praticar a comunicação **cliente-servidor**, manipulando dados e
 • Clone o repositório:  
 ```bash
 git clone https://github.com/RaphaelPCarmo/Aula5Exerc5ProjectService.git
-
+```
 • Abra o projeto na sua IDE Java (IntelliJ, Eclipse ou VS Code).
 
 • Execute a classe principal:
-
+```
 Aula5Exerc5ProjetoServiceApplication.java
-
+```
 
 • O servidor iniciará em:
-
+```
 http://localhost:8080
-
-
+```
 • Acesse os arquivos HTML localizados em resources/static/ para testar as requisições via Fetch API.
 
 <h2> 📦 Estrutura do Projeto </h2>
+
+```
 Aula5Exerc5ProjectService/
 │
 ├── src/
@@ -74,10 +75,11 @@ Aula5Exerc5ProjectService/
 │
 ├── database.sql
 └── README.md
-
+```
 <h2> 📜 Código de Exemplo </h2>
-package br.com.unifaj.poo.Aula4JDBC;
 
+```
+package br.com.unifaj.poo.Aula4JDBC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -87,7 +89,8 @@ public class Aula5Exerc5ProjetoServiceApplication {
         SpringApplication.run(Aula5Exerc5ProjetoServiceApplication.class, args);
     }
 }
-
+```
+```
 <!-- Exemplo de formulário HTML -->
 <form id="pessoaForm">
   <input type="text" id="nome" placeholder="Nome" required />
@@ -111,7 +114,7 @@ document.getElementById("pessoaForm").addEventListener("submit", async (event) =
     alert("Pessoa salva com sucesso!");
   }
 });
-
+```
 <h2> 🎯 Objetivo do Projeto </h2>
 
 Este projeto foi criado para praticar e consolidar:
@@ -145,8 +148,4 @@ Exemplo do projeto sendo executado no IntelliJ IDEA:
 <h2> 🧑‍💻 Autor </h2>
 
 👤 Raphael Perim do Carmo
-📎 LinkedIn
-
-💻 GitHub
-
 <img src="https://github.com/RaphaelPCarmo.png" width="120" style="border-radius: 30%">
