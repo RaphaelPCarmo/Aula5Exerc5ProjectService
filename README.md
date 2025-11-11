@@ -146,4 +146,5 @@ Estrutura de projeto modular e limpa
 <h2> 🧑‍💻 Autor </h2>
 
 👤 Raphael Perim do Carmo
+
 <img src="https://github.com/RaphaelPCarmo.png" width="120" style="border-radius: 30%">
