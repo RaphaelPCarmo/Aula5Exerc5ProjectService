@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Projetos - Raphael Perim do Carmo - RA 12426977</title>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        h1 { color: #2d89ef; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f2f2f2; }
+        button { margin-top: 15px; padding: 8px 16px; }
+    </style>
+</head>
+<body>
+<h1>Projetos - Raphael Perim do Carmo - RA 12426977</h1>
+
+<button onclick="listar()">Atualizar Lista</button>
+
+<table id="tabela">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Estado</th>
+        <th>Qtd Pessoas</th>
+        <th>Gestor</th>
+        <th>Líder Técnico</th>
+        <th>Gerente</th>
+        <th>Data Início</th>
+        <th>Data Fim</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    const baseUrl = "http://localhost:8080";
+
+    async function listar() {
+      const res = await fetch(`${baseUrl}/projeto`);
+      const data = await res.json();
+
+      const tbody = document.querySelector("#tabela tbody");
+      tbody.innerHTML = "";
+      data.forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${p.id}</td>
+          <td>${p.nome}</td>
+          <td>${p.estado}</td>
+          <td>${p.qtdPessoas}</td>
+          <td>${p.gestorProjeto}</td>
+          <td>${p.liderTecnico}</td>
+          <td>${p.gerente}</td>
+          <td>${p.dataInicio}</td>
+          <td>${p.dataFim}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    listar();
+</script>
+</body>
+</html>

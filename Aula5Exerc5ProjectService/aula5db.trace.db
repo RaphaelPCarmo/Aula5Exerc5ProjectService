@@ -1,0 +1,6 @@
+2025-11-07 21:09:37.569347-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "FUNCIONARIO" not found (this database is empty); SQL statement:
+INSERT INTO Funcionario (nome, cargo, salario) VALUES (?, ?, ?) [42104-232]
+2025-11-07 21:10:31.030277-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "FUNCIONARIO" not found (this database is empty); SQL statement:
+INSERT INTO Funcionario (nome, cargo, salario) VALUES (?, ?, ?) [42104-232]

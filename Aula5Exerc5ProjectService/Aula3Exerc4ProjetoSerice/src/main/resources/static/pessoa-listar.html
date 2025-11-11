@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Pessoas — Raphael Perim do Carmo — RA 1242677</title>
+    <style>
+        body{font-family:Arial,Helvetica,sans-serif;margin:24px;max-width:1000px}
+        h1{margin:0 0 12px 0}
+        .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+        button{padding:8px 10px;border-radius:6px;border:0;cursor:pointer}
+        .btn-primary{background:#2d89ef;color:#fff}
+        .btn-danger{background:#e53935;color:#fff}
+        table{width:100%;border-collapse:collapse;margin-top:16px}
+        th,td{padding:8px;border:1px solid #ddd;text-align:left}
+        th{background:#f4f4f4}
+        .actions{display:flex;gap:6px}
+        .small{width:110px}
+        pre{background:#f6f6f6;padding:10px;border-radius:6px;margin-top:12px}
+    </style>
+</head>
+<body>
+<div class="top">
+    <h1>Pessoas — Raphael Perim do Carmo — RA 12426977</h1>
+    <div>
+        <button class="btn-primary" onclick="window.location.href='pessoa-form.html'">Incluir Pessoa</button>
+        <button onclick="listar()">Atualizar</button>
+    </div>
+</div>
+
+<table id="tabela">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th>Telefone</th>
+        <th class="small">Ações</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<pre id="resposta">Nenhuma ação ainda.</pre>
+
+<script>
+    const baseUrl = 'http://localhost:8080';
+    async function listar() {
+      try {
+        const res = await fetch(`${baseUrl}/pessoa`);
+        if (!res.ok) throw new Error('Erro ao listar: ' + res.status);
+        const data = await res.json();
+        const tbody = document.querySelector('#tabela tbody');
+        tbody.innerHTML = '';
+        if (!Array.isArray(data) || data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5">Nenhuma pessoa encontrada.</td></tr>';
+          return;
+        }
+        data.forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${p.id ?? ''}</td>
+            <td>${escapeHtml(p.nome) ?? ''}</td>
+            <td>${escapeHtml(p.endereco) ?? ''}</td>
+            <td>${escapeHtml(p.telefone) ?? ''}</td>
+            <td class="actions">
+              <button onclick="editar(${p.id})">Editar</button>
+              <button class="btn-danger" onclick="excluir(${p.id})">Excluir</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        document.getElementById('resposta').textContent = `Listados ${data.length} registros.`;
+      } catch (e) {
+        document.getElementById('resposta').textContent = e.message;
+      }
+    }
+
+    async function excluir(id) {
+      if (!confirm('Confirma exclusão da pessoa ID ' + id + '?')) return;
+      try {
+        const res = await fetch(`${baseUrl}/pessoa/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        const json = await safeParseJson(res);
+        document.getElementById('resposta').textContent = `HTTP ${res.status}\n${JSON.stringify(json, null, 2)}`;
+        listar();
+      } catch (e) {
+        document.getElementById('resposta').textContent = 'Erro: ' + e.message;
+      }
+    }
+
+    // Redireciona para o formulário com query string ?id=...
+    function editar(id) {
+      // se o seu pessoa-form.html suporta preencher via ?id=, usa isso
+      window.location.href = `pessoa-form.html?id=${encodeURIComponent(id)}`;
+    }
+
+    async function safeParseJson(res) {
+      try {
+        const txt = await res.text();
+        return txt ? JSON.parse(txt) : { statusText: res.statusText };
+      } catch (e) {
+        return { raw: 'Resposta não JSON' };
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str && str !== 0) return '';
+      return String(str).replace(/[&<>"']/g, s => {
+        const m = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' };
+        return m[s];
+      });
+    }
+
+    // carregar ao abrir
+    listar();
+</script>
+</body>
+</html>
