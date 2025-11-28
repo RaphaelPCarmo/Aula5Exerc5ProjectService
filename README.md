@@ -1,4 +1,4 @@
-# 💻 Aula5Exerc5ProjetoService  
+# 💻 springboot-crud-h2-api  
 
 Aplicação desenvolvida em **Java com Spring Boot**, integrando **HTML**, **Fetch API** e **H2 Database**.  
 O objetivo é praticar a comunicação **cliente-servidor**, manipulando dados entre o front-end e o back-end por meio de **requisições HTTP** e **serviços RESTful**.  
